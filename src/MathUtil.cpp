@@ -16,7 +16,7 @@ bool MathUtil::PointInsideTriangle(Double2 a, Double2 b, Double2 c, Double2 p)
   bool sideAB = PointOnRightSideOfLine(a, b, p);
   bool sideBC = PointOnRightSideOfLine(b, c, p);
   bool sideCA = PointOnRightSideOfLine(c, a, p);
-  return sideAB && sideBC && sideCA;
+  return sideAB == sideBC && sideBC == sideCA;
 }
 
 double MathUtil::Dot(Double2 a, Double2 b)

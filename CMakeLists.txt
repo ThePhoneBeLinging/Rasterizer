@@ -25,8 +25,8 @@ add_executable(Rasterization main.cpp
         src/models/Double2.h
         src/models/Double3.cpp
         src/models/Double3.h
-        Rasterizer.cpp
-        Rasterizer.h
+        src/Rasterizers/SingleTriangleRasterizer.cpp
+        src/Rasterizers/SingleTriangleRasterizer.h
         src/models/Pixel.cpp
         src/models/Pixel.h
         src/models/ImageInterface.cpp
@@ -36,6 +36,7 @@ add_executable(Rasterization main.cpp
         src/models/ImageSlow.cpp
         src/models/ImageSlow.h
         src/EnvVariables.h
+        src/Rasterizers/IRasterizer.h
 )
 
 target_link_libraries(Rasterization PUBLIC raylib)

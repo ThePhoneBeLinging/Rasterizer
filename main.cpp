@@ -1,12 +1,12 @@
 #include <iostream>
 
-#include "Rasterizer.h"
+#include "src/Rasterizers/SingleTriangleRasterizer.h"
 #include "raylib.h"
 #include "src/EnvVariables.h"
 
 int main()
 {
-  auto rasterizer = Rasterizer();
+  auto rasterizer = SingleTriangleRasterizer();
   InitWindow(EnvVariables::screenWidth, EnvVariables::screenHeight, "Rasterizer");
   //SetTargetFPS(1);
 
