@@ -17,7 +17,6 @@
 std::unique_ptr<ImageInterface> SingleTriangleRasterizer::rasterize()
 {
   std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-
   std::random_device dev;
   std::mt19937 rng(dev());
   std::uniform_int_distribution<std::mt19937::result_type> randX(0, 1280); // distribution in range [1, 6]
@@ -25,7 +24,7 @@ std::unique_ptr<ImageInterface> SingleTriangleRasterizer::rasterize()
   std::uniform_int_distribution<std::mt19937::result_type> randColor(0, 255); // distribution in range [1, 6]
 
   std::vector<std::vector<Pixel>> pixels(EnvVariables::screenWidth);
-  for (int _ = 0; _ < 250; _++)
+  for (int _ = 0; _ < 50; _++)
   {
     Double2 p1 = Double2(randX(rng), randY(rng));
     Double2 p2 = Double2(randX(rng), randY(rng));
@@ -35,18 +34,22 @@ std::unique_ptr<ImageInterface> SingleTriangleRasterizer::rasterize()
     int green = randColor(rng);
     int blue = randColor(rng);
 
+    int minX = std::min(p1.x, std::min(p2.x, p3.x));
+    int minY = std::min(p1.y, std::min(p2.y, p3.y));
+    int maxX = std::max(p1.x, std::max(p2.x, p3.x));
+    int maxY = std::max(p1.y, std::max(p2.y, p3.y));
 
-    for (int i = 0; i < EnvVariables::screenWidth; i++)
+
+    for (int i = minX; i < maxX; i++)
     {
       pixels[i].resize(EnvVariables::screenHeight);
-
-
-      for (int j = 0; j < EnvVariables::screenHeight; j++)
+      for (int j = minY; j < maxY; j++)
       {
-        if (MathUtil::PointInsideTriangle(p1, p2, p3, {static_cast<double>(i), static_cast<double>(j)}))
+        if (not MathUtil::PointInsideTriangle(p1, p2, p3, {static_cast<double>(i), static_cast<double>(j)}))
         {
-          pixels[i][j] = Pixel(red, green, blue);
+          continue;
         }
+        pixels[i][j] = Pixel(red, green, blue);
       }
     }
   }

@@ -37,6 +37,12 @@ add_executable(Rasterization main.cpp
         src/models/ImageSlow.h
         src/EnvVariables.h
         src/Rasterizers/IRasterizer.h
+        src/models/ModelLoader.cpp
+        src/models/ModelLoader.h
+        src/models/Model.cpp
+        src/models/Model.h
+        src/Rasterizers/CubeRasterizer.cpp
+        src/Rasterizers/CubeRasterizer.h
 )
 
 target_link_libraries(Rasterization PUBLIC raylib)
