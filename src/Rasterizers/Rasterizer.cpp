@@ -24,7 +24,7 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
   {
     for (int j = 0; j < EnvVariables::screenHeight; j++)
     {
-      image.pixels_[i][j] = Pixel(255, 255, 255);
+      image.pixels_[i][j] = Pixel(0, 0, 0);
     }
   }
 
@@ -45,8 +45,8 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
     Double2 p2 = trianglePoints[index + 1];
     Double2 p3 = trianglePoints[index + 2];
 
-    int minX = std::min(p1.x, std::min(p2.x, p3.x));
-    int minY = std::min(p1.y, std::min(p2.y, p3.y));
+    int minX = std::min(p1.x, std::min(p2.x, p3.x)) - 1;
+    int minY = std::min(p1.y, std::min(p2.y, p3.y)) - 1;
     int maxX = std::max(p1.x, std::max(p2.x, p3.x)) + 1;
     int maxY = std::max(p1.y, std::max(p2.y, p3.y)) + 1;
     auto pixel = triangleColors[index / 3];
