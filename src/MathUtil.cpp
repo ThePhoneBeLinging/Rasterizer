@@ -3,9 +3,7 @@
 //
 
 #include "MathUtil.h"
-
 #include <random>
-#
 #include "EnvVariables.h"
 #include "Transformer.h"
 
