@@ -39,10 +39,12 @@ add_executable(Rasterization main.cpp
         src/Rasterizers/IRasterizer.h
         src/models/ModelLoader.cpp
         src/models/ModelLoader.h
-        src/models/Model.cpp
-        src/models/Model.h
+        src/models/RasModel.cpp
+        src/models/RasModel.h
         src/Rasterizers/CubeRasterizer.cpp
         src/Rasterizers/CubeRasterizer.h
+        src/Rasterizers/Rasterizer.cpp
+        src/Rasterizers/Rasterizer.h
 )
 
 target_link_libraries(Rasterization PUBLIC raylib)

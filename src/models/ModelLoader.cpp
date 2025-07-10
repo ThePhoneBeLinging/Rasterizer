@@ -7,11 +7,20 @@
 #include <fstream>
 #include <sstream>
 
-Model ModelLoader::loadModel(const std::string& filePath)
+#include "../MathUtil.h"
+
+RasModel ModelLoader::loadModel(const std::string& filePath)
 {
-  auto model = Model();
-  model.setVertices(getObjectVertices(filePath));
-  model.setFaces(getObjectFaces(filePath));
+  auto model = RasModel();
+  model.vertices_ = getObjectVertices(filePath);
+  model.faces_ = getObjectFaces(filePath);
+  for (const auto& face : model.faces_)
+  {
+    model.triangles_.emplace_back(model.vertices_[face.x]);
+    model.triangles_.emplace_back(model.vertices_[face.y]);
+    model.triangles_.emplace_back(model.vertices_[face.z]);
+    model.triangleColors_.push_back(MathUtil::RandomColor());
+  }
   return model;
 }
 
@@ -29,7 +38,7 @@ std::vector<Double3> ModelLoader::getObjectVertices(std::string objectPath)
 
     iss >> prefix >> x >> y >> z;
 
-    vertices.emplace_back(x, y, z);
+    vertices.emplace_back(x * 300, y * 300, z * 300);
   }
   return vertices;
 }

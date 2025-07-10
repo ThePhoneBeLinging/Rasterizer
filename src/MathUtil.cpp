@@ -4,6 +4,10 @@
 
 #include "MathUtil.h"
 
+#include <random>
+
+#include "EnvVariables.h"
+
 bool MathUtil::PointOnRightSideOfLine(Double2 a, Double2 b, Double2 p)
 {
   Double2 ap = p - a;
@@ -27,4 +31,24 @@ double MathUtil::Dot(Double2 a, Double2 b)
 Double2 MathUtil::Perpendicular(Double2 a)
 {
   return {a.y, -a.x};
+}
+
+Double2 MathUtil::WorldToScreen(const Double3& vertex)
+{
+  return {vertex.x + (EnvVariables::screenWidth / 2), vertex.y + (EnvVariables::screenHeight / 2)};
+}
+
+Color MathUtil::RandomColor()
+{
+  std::random_device dev;
+  if (not rng_.has_value())
+  {
+    rng_ = std::mt19937(dev());
+    colorDist_ = std::uniform_int_distribution<std::mt19937::result_type>(0, 255);
+  }
+  auto randInt = []() -> int8_t
+  {
+    return colorDist_.value()(rng_.value());
+  };
+  return Color(randInt(), randInt(), randInt(), 255);
 }

@@ -5,7 +5,7 @@
 #ifndef CUBERASTERIZER_H
 #define CUBERASTERIZER_H
 #include "IRasterizer.h"
-#include "../models/Model.h"
+#include "../models/RasModel.h"
 
 class CubeRasterizer : public IRasterizer
 {
@@ -14,7 +14,7 @@ public:
   std::unique_ptr<ImageInterface> rasterize() override;
 
 private:
-  Model cubeModel_;
+  RasModel cubeModel_;
 };
 
 

@@ -7,16 +7,15 @@
 #include <vector>
 
 #include "Double3.h"
+#include "raylib.h"
 
 
-class Model
+class RasModel
 {
 public:
-  Model() = default;
-  void setVertices(std::vector<Double3> vertices);
-  void setFaces(std::vector<Double3> faces);
-
-private:
+  RasModel() = default;
+  std::vector<Double3> triangles_;
+  std::vector<Color> triangleColors_;
   std::vector<Double3> vertices_;
   std::vector<Double3> faces_;
 };
