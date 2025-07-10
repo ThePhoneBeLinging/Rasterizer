@@ -4,17 +4,23 @@
 
 #ifndef IMAGESLOW_H
 #define IMAGESLOW_H
-#include "ImageInterface.h"
+#include <optional>
+#include <vector>
+
+#include "Pixel.h"
+#include "raylib.h"
 
 
-class ImageSlow : public ImageInterface
+class ImageSlow
 {
 public:
-  explicit ImageSlow(std::vector<std::vector<Pixel>> pixel);
-  void draw() override;
+  explicit ImageSlow();
+  void draw();
+
+  std::vector<std::vector<Pixel>> pixels_;
 
 private:
-  std::vector<std::vector<Pixel>> pixels_;
+  std::optional<Texture2D> texture;
 };
 
 

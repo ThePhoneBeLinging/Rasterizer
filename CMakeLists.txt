@@ -25,24 +25,17 @@ add_executable(Rasterization main.cpp
         src/models/Double2.h
         src/models/Double3.cpp
         src/models/Double3.h
-        src/Rasterizers/SingleTriangleRasterizer.cpp
-        src/Rasterizers/SingleTriangleRasterizer.h
         src/models/Pixel.cpp
         src/models/Pixel.h
-        src/models/ImageInterface.cpp
-        src/models/ImageInterface.h
         src/MathUtil.cpp
         src/MathUtil.h
         src/models/ImageSlow.cpp
         src/models/ImageSlow.h
         src/EnvVariables.h
-        src/Rasterizers/IRasterizer.h
         src/models/ModelLoader.cpp
         src/models/ModelLoader.h
         src/models/RasModel.cpp
         src/models/RasModel.h
-        src/Rasterizers/CubeRasterizer.cpp
-        src/Rasterizers/CubeRasterizer.h
         src/Rasterizers/Rasterizer.cpp
         src/Rasterizers/Rasterizer.h
         src/Transformer.cpp

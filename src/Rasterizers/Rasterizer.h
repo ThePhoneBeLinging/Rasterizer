@@ -5,14 +5,14 @@
 #ifndef RASTERIZER_H
 #define RASTERIZER_H
 #include <memory>
-#include "../models/ImageInterface.h"
 #include "../models/RasModel.h"
+#include "../models/ImageSlow.h"
 
 
 class Rasterizer
 {
 public:
-  std::unique_ptr<ImageInterface> rasterize(const std::vector<RasModel>& models);
+  void rasterize(const std::vector<RasModel>& models, ImageSlow& image);
 };
 
 

@@ -1,7 +1,6 @@
 #include <chrono>
 #include <iostream>
 
-#include "src/Rasterizers/SingleTriangleRasterizer.h"
 #include "raylib.h"
 #include "src/EnvVariables.h"
 #include "src/Transformer.h"
@@ -17,16 +16,19 @@ int main()
 
   std::vector<RasModel> models;
   models.push_back(cube);
+  ImageSlow image = ImageSlow();
   while (!WindowShouldClose())
   {
-    std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    const auto image = rasterizer.rasterize(models);
-    image->draw();
+    rasterizer.rasterize(models, image);
+    std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
+    image.draw();
     std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
     Transformer::yaw += 1.0f * duration.count() / 1000;
+    std::cout << "Drawing took: " << duration.count() << " ms" << std::endl;
+    DrawFPS(0, 0);
     EndDrawing();
   }
 

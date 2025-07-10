@@ -14,14 +14,9 @@
 #include "../models/Double3.h"
 #include "../models/ImageSlow.h"
 
-std::unique_ptr<ImageInterface> Rasterizer::rasterize(const std::vector<RasModel>& models)
+void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image)
 {
   std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-  std::vector<std::vector<Pixel>> pixels(EnvVariables::screenWidth);
-  for (int i = 0; i < EnvVariables::screenWidth; i++)
-  {
-    pixels[i].resize(EnvVariables::screenHeight);
-  }
   std::vector<Double2> trianglePoints;
   std::vector<Pixel> triangleColors;
   for (const auto& model : models)
@@ -55,12 +50,11 @@ std::unique_ptr<ImageInterface> Rasterizer::rasterize(const std::vector<RasModel
         {
           continue;
         }
-        pixels[i][j] = pixel;
+        image.pixels_[i][j] = pixel;
       }
     }
   }
   std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
   std::cout << "Pixel calculation took: " << duration.count() << "ms" << std::endl;
-  return std::make_unique<ImageSlow>(pixels);
 }
