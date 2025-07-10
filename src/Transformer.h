@@ -13,6 +13,7 @@ class Transformer
 {
 public:
   static inline double yaw = 0;
+  static inline double pitch = 0;
   static Double3 ToWorldPoint(Double3 point);
   static std::vector<Double3> GetBasisVectors();
   static Double3 TransformVector(const Double3& iHat, const Double3& jHat, const Double3& kHat, const Double3& point);
