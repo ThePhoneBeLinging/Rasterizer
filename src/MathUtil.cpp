@@ -37,7 +37,10 @@ Double2 MathUtil::Perpendicular(Double2 a)
 Double2 MathUtil::WorldToScreen(const Double3& vertex)
 {
   auto vertex_world = Transformer::ToWorldPoint(vertex);
-  return {vertex_world.x + (EnvVariables::screenWidth / 2), vertex_world.y + (EnvVariables::screenHeight / 2)};
+  return {
+    vertex_world.x + (static_cast<double>(EnvVariables::screenWidth) / 2),
+    vertex_world.y + (static_cast<double>(EnvVariables::screenHeight) / 2)
+  };
 }
 
 Color MathUtil::RandomColor()
