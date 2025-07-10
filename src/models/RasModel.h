@@ -14,6 +14,8 @@ class RasModel
 {
 public:
   RasModel() = default;
+  void generateTriangles();
+  RasModel operator*(double scale);
   std::vector<Double3> triangles_;
   std::vector<Color> triangleColors_;
   std::vector<Double3> vertices_;

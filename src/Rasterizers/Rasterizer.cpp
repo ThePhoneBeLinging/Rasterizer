@@ -65,5 +65,5 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
   }
   std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-  std::cout << "Pixel calculation took: " << duration.count() << "ms" << std::endl;
+  std::cout << "Rasterization took: " << duration.count() << "ms" << std::endl;
 }

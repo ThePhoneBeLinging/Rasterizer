@@ -11,8 +11,8 @@ int main()
 {
   InitWindow(EnvVariables::screenWidth, EnvVariables::screenHeight, "Rasterizer");
   SetTargetFPS(60);
-  const auto cube = ModelLoader::loadModel("../Resources/simpleCube.obj");
-
+  auto cube = ModelLoader::loadModel("../Resources/simpleCube.obj");
+  cube = cube * 300;
   std::vector<RasModel> models;
   models.push_back(cube);
   ImageSlow image = ImageSlow();
@@ -25,8 +25,8 @@ int main()
     image.draw();
     std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-    Transformer::yaw += 1.0f * duration.count() / 1000;
-    Transformer::pitch += 1.0f * duration.count() / 1000;
+    Transformer::yaw += 1.0f * static_cast<double>(duration.count()) / 1000;
+    Transformer::pitch += 1.0f * static_cast<double>(duration.count()) / 1000;
     std::cout << "Drawing took: " << duration.count() << " ms" << std::endl;
     DrawFPS(0, 0);
     EndDrawing();
