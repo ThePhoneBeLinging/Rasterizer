@@ -43,9 +43,9 @@ Double2 MathUtil::WorldToScreen(const Double3& vertex)
 
 Color MathUtil::RandomColor()
 {
-  std::random_device dev;
   if (not rng_.has_value())
   {
+    std::random_device dev;
     rng_ = std::mt19937(dev());
     colorDist_ = std::uniform_int_distribution<std::mt19937::result_type>(0, 255);
   }
