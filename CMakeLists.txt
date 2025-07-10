@@ -45,6 +45,8 @@ add_executable(Rasterization main.cpp
         src/Rasterizers/CubeRasterizer.h
         src/Rasterizers/Rasterizer.cpp
         src/Rasterizers/Rasterizer.h
+        src/Transformer.cpp
+        src/Transformer.h
 )
 
 target_link_libraries(Rasterization PUBLIC raylib)

@@ -10,6 +10,8 @@ class Double3
 {
 public:
   Double3(double x, double y, double z);
+  Double3 operator*(const double& b) const;
+  Double3 operator+(Double3 b) const;
   double x;
   double y;
   double z;

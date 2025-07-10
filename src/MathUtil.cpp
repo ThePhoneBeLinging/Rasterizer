@@ -5,8 +5,9 @@
 #include "MathUtil.h"
 
 #include <random>
-
+#
 #include "EnvVariables.h"
+#include "Transformer.h"
 
 bool MathUtil::PointOnRightSideOfLine(Double2 a, Double2 b, Double2 p)
 {
@@ -20,7 +21,7 @@ bool MathUtil::PointInsideTriangle(Double2 a, Double2 b, Double2 c, Double2 p)
   bool sideAB = PointOnRightSideOfLine(a, b, p);
   bool sideBC = PointOnRightSideOfLine(b, c, p);
   bool sideCA = PointOnRightSideOfLine(c, a, p);
-  return sideAB == sideBC && sideBC == sideCA;
+  return sideAB && sideBC && sideCA;
 }
 
 double MathUtil::Dot(Double2 a, Double2 b)
@@ -35,7 +36,8 @@ Double2 MathUtil::Perpendicular(Double2 a)
 
 Double2 MathUtil::WorldToScreen(const Double3& vertex)
 {
-  return {vertex.x + (EnvVariables::screenWidth / 2), vertex.y + (EnvVariables::screenHeight / 2)};
+  auto vertex_world = Transformer::ToWorldPoint(vertex);
+  return {vertex_world.x + (EnvVariables::screenWidth / 2), vertex_world.y + (EnvVariables::screenHeight / 2)};
 }
 
 Color MathUtil::RandomColor()
