@@ -12,7 +12,7 @@
 class Rasterizer
 {
 public:
-  void rasterize(const std::vector<RasModel>& models, ImageSlow& image);
+  static void rasterize(const std::vector<RasModel>& models, ImageSlow& image);
 };
 
 

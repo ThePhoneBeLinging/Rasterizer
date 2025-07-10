@@ -9,7 +9,6 @@
 
 int main()
 {
-  auto rasterizer = Rasterizer();
   InitWindow(EnvVariables::screenWidth, EnvVariables::screenHeight, "Rasterizer");
   SetTargetFPS(60);
   const auto cube = ModelLoader::loadModel("../Resources/simpleCube.obj");
@@ -21,7 +20,7 @@ int main()
   {
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    rasterizer.rasterize(models, image);
+    Rasterizer::rasterize(models, image);
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
     image.draw();
     std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
