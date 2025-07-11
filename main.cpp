@@ -11,10 +11,14 @@ int main()
 {
   InitWindow(EnvVariables::screenWidth, EnvVariables::screenHeight, "Rasterizer");
   SetTargetFPS(60);
-  auto cube = ModelLoader::loadModel("../Resources/simpleCube.obj");
-  cube = cube * 300;
   std::vector<RasModel> models;
-  models.push_back(cube);
+  for (int i = 0; i < 5; i++)
+  {
+    auto cube = ModelLoader::loadModel("../Resources/simpleCube.obj");
+    cube = cube * 100;
+    cube.setPosition(i * 200 - 400, 0, 0);
+    models.push_back(cube);
+  }
   ImageSlow image = ImageSlow();
   while (!WindowShouldClose())
   {
