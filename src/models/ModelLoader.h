@@ -5,7 +5,7 @@
 #ifndef MODELLOADER_H
 #define MODELLOADER_H
 #include <vector>
-#include "RasModel.h"
+#include "Model.h"
 #include "Double3.h"
 
 

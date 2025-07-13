@@ -22,7 +22,6 @@ public:
   static void render(std::vector<Model>& models);
 
 private:
-  static GLuint createBuffers();
   static void errorCallback(int error, const char* description);
   static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
   static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);

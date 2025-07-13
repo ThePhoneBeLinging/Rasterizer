@@ -7,12 +7,14 @@
 #include <vector>
 
 #include "Double3.h"
+#include "glad/gl.h"
 
 
 class Model
 {
 public:
   Model();
+  GLuint getVBO() const;
   void generateTriangles();
   void setPosition(double x, double y, double z);
   Model operator*(double scale);

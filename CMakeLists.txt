@@ -72,8 +72,8 @@ add_executable(Rasterization main.cpp
         src/Util/EnvVariables.h
         src/models/ModelLoader.cpp
         src/models/ModelLoader.h
-        src/models/RasModel.cpp
-        src/models/RasModel.h
+        src/models/Model.cpp
+        src/models/Model.h
         src/Util/Transformer.cpp
         src/Util/Transformer.h
         src/Util/OpenGLUtil.cpp

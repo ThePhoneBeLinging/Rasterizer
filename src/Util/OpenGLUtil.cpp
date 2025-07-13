@@ -9,6 +9,7 @@
 #include <iterator>
 
 #include "EnvVariables.h"
+#include "../models/Model.h"
 #include "glm/vec3.hpp"
 
 void OpenGLUtil::initializeOpenGL(const std::string& nameOfApp)
@@ -152,14 +153,6 @@ GLFWwindow* OpenGLUtil::getWindow()
 
 void OpenGLUtil::render(std::vector<Model>& models)
 {
-  auto vao = createBuffers();
-  glUseProgram(shaderProgram_);
-  glBindVertexArray(vao);
-  glDrawArrays(GL_TRIANGLES, 0, 3);
-}
-
-GLuint OpenGLUtil::createBuffers()
-{
   // specify the layout of the vertex data, being the vertex position followed by the vertex color
   struct Vertex
   {
@@ -167,12 +160,14 @@ GLuint OpenGLUtil::createBuffers()
     glm::vec3 color;
   };
 
-  // we specify a triangle with red, green, blue at the tips of the triangle
-  Vertex vertexData[] = {
-    Vertex{glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(1.f, 0.f, 0.f)},
-    Vertex{glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(0.f, 1.f, 0.f)},
-    Vertex{glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(0.f, 0.f, 1.f)}
-  };
+  std::vector<Vertex> vertexData;
+  for (const auto& model : models)
+  {
+    for (const auto& triangle : model.triangles_)
+    {
+      vertexData.emplace_back(glm::vec3(triangle.x, triangle.y, triangle.z), glm::vec3(1.0f, 0.0f, 0.0f));
+    }
+  }
 
   // create the vertex array object that holds all vertex buffers
   GLuint vao;
@@ -183,15 +178,15 @@ GLuint OpenGLUtil::createBuffers()
   GLuint vbo;
   glGenBuffers(1, &vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertexData.size(), vertexData.data(), GL_STATIC_DRAW);
 
-  // we need to tell the buffer in which format the data is and we need to explicitly enable it
-  // first we specify the layout of the vertex position
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(struct Vertex, pos)));
+  // Assuming layout location 0 for position, 1 for color
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, pos));
   glEnableVertexAttribArray(0);
-  // then we specify the layout of the vertex color
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(struct Vertex, color)));
-  glEnableVertexAttribArray(1);
 
-  return vao;
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
+  glEnableVertexAttribArray(1);
+  glUseProgram(shaderProgram_);
+  glBindVertexArray(vao);
+  glDrawArrays(GL_TRIANGLES, 0, vertexData.size());
 }

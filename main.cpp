@@ -12,8 +12,8 @@ int main()
   for (int i = 0; i < 1; i++)
   {
     auto cube = ModelLoader::loadModel("../Resources/simpleCube.obj");
-    cube = cube * 100;
-    cube.setPosition(i * 200 - 400, 0, 0);
+    //cube = cube * 100;
+    //cube.setPosition(i * 200 - 400, 0, 0);
     models.push_back(cube);
   }
   while (!glfwWindowShouldClose(OpenGLUtil::getWindow()))
