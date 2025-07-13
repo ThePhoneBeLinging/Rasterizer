@@ -9,6 +9,7 @@
 #include <iterator>
 
 #include "EnvVariables.h"
+#include "Transformer.h"
 #include "../models/Model.h"
 #include "glm/vec3.hpp"
 
@@ -163,9 +164,16 @@ void OpenGLUtil::render(std::vector<Model>& models)
   std::vector<Vertex> vertexData;
   for (const auto& model : models)
   {
-    for (const auto& triangle : model.triangles_)
+    int index = 0;
+    for (const auto& trianglePoint : model.trianglePoints)
     {
-      vertexData.emplace_back(glm::vec3(triangle.x, triangle.y, triangle.z), glm::vec3(1.0f, 0.0f, 0.0f));
+      auto colorDouble3 = model.triangleColors_[index / 3];
+      auto color = glm::vec3(colorDouble3.x, colorDouble3.y, colorDouble3.z);
+
+      const auto worldPoint = Transformer::ToWorldPoint(trianglePoint);
+
+      vertexData.emplace_back(glm::vec3(worldPoint.x, worldPoint.y, worldPoint.z), color);
+      index++;
     }
   }
 

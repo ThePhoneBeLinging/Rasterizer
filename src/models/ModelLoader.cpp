@@ -14,7 +14,7 @@ Model ModelLoader::loadModel(const std::string& filePath)
   auto model = Model();
   model.vertices_ = getObjectVertices(filePath);
   model.faces_ = getObjectFaces(filePath);
-  model.generateTriangles();
+  model.generateTrianglePoints();
   return model;
 }
 
