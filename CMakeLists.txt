@@ -3,22 +3,62 @@ project(Rasterization)
 
 set(CMAKE_CXX_STANDARD 23)
 
-set(RAYLIB_VERSION 5.0)
-find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
-if (NOT raylib_FOUND) # If there's none, fetch and build raylib
-    include(FetchContent)
-    FetchContent_Declare(
-            raylib
-            DOWNLOAD_EXTRACT_TIMESTAMP OFF
-            URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
-    )
-    FetchContent_GetProperties(raylib)
-    if (NOT raylib_POPULATED) # Have we downloaded raylib yet?
-        set(FETCHCONTENT_QUIET NO)
-        set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
-        FetchContent_MakeAvailable(raylib)
-    endif ()
-endif ()
+include(FetchContent)
+set(FETCHCONTENT_QUIET FALSE)
+
+# GLFW
+FetchContent_Declare(
+        glfw
+        GIT_REPOSITORY https://github.com/glfw/glfw.git
+        GIT_TAG 3.3.10
+)
+FetchContent_MakeAvailable(glfw)
+set_target_properties(glfw PROPERTIES
+        FOLDER "glfw"
+)
+# Optionally disable tests/docs/examples
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
+
+# GLAD
+FetchContent_Declare(
+        glad
+        GIT_REPOSITORY https://github.com/Dav1dde/glad.git
+        GIT_TAG v2.0.6
+)
+FetchContent_MakeAvailable(glad)
+
+set(CMAKE_MODULE_PATH
+        ${CMAKE_MODULE_PATH}
+        ${glad_SOURCE_DIR}/cmake)
+include(${glad_SOURCE_DIR}/cmake/GladConfig.cmake)
+add_subdirectory(${glad_SOURCE_DIR}/cmake glad_cmake)
+
+set(GLAD_LIBRARY glad_gl_core_46)
+glad_add_library(${GLAD_LIBRARY} SHARED API gl:core=4.6)
+set_target_properties(${GLAD_LIBRARY} PROPERTIES
+        FOLDER "glad"
+)
+
+install(TARGETS ${GLAD_LIBRARY}
+        EXPORT ${GLAD_LIBRARY}-targets
+        RUNTIME DESTINATION bin
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib)
+
+
+# GLM
+FetchContent_Declare(
+        glm
+        GIT_REPOSITORY https://github.com/g-truc/glm.git
+        GIT_TAG 1.0.1
+)
+FetchContent_MakeAvailable(glm)
+set_target_properties(glm PROPERTIES
+        FOLDER "glm"
+)
 
 add_executable(Rasterization main.cpp
         src/models/Double2.cpp
@@ -27,19 +67,21 @@ add_executable(Rasterization main.cpp
         src/models/Double3.h
         src/models/Pixel.cpp
         src/models/Pixel.h
-        src/MathUtil.cpp
-        src/MathUtil.h
-        src/models/ImageSlow.cpp
-        src/models/ImageSlow.h
-        src/EnvVariables.h
+        src/Util/MathUtil.cpp
+        src/Util/MathUtil.h
+        src/Util/EnvVariables.h
         src/models/ModelLoader.cpp
         src/models/ModelLoader.h
         src/models/RasModel.cpp
         src/models/RasModel.h
-        src/Rasterizers/Rasterizer.cpp
-        src/Rasterizers/Rasterizer.h
-        src/Transformer.cpp
-        src/Transformer.h
+        src/Util/Transformer.cpp
+        src/Util/Transformer.h
+        src/Util/OpenGLUtil.cpp
+        src/Util/OpenGLUtil.h
 )
 
-target_link_libraries(Rasterization PUBLIC raylib)
+target_link_libraries(Rasterization PUBLIC
+        glm
+        glfw
+        ${GLAD_LIBRARY}
+)

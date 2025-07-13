@@ -6,9 +6,8 @@
 #define MATHUTIL_H
 #include <random>
 
-#include "raylib.h"
-#include "models/Double2.h"
-#include "models/Double3.h"
+#include "../models/Double2.h"
+#include "../models/Double3.h"
 
 
 class MathUtil
@@ -19,7 +18,7 @@ public:
   static double Dot(Double2 a, Double2 b);
   static Double2 Perpendicular(Double2 a);
   static Double2 WorldToScreen(const Double3& vertex);
-  static Color RandomColor();
+  static Double3 RandomColor();
 
 private:
   static inline std::optional<std::mt19937> rng_;

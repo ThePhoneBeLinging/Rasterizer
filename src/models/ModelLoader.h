@@ -12,7 +12,7 @@
 class ModelLoader
 {
 public:
-  static RasModel loadModel(const std::string& filePath);
+  static Model loadModel(const std::string& filePath);
 
 private:
   static std::vector<Double3> getObjectVertices(std::string objectPath);

@@ -3,13 +3,13 @@
 //
 
 #include "RasModel.h"
-#include "../MathUtil.h"
+#include "../Util/MathUtil.h"
 
-RasModel::RasModel() : offset_(0, 0, 0)
+Model::Model() : offset_(0, 0, 0)
 {
 }
 
-void RasModel::generateTriangles()
+void Model::generateTriangles()
 {
   for (const auto& face : faces_)
   {
@@ -20,7 +20,7 @@ void RasModel::generateTriangles()
   }
 }
 
-void RasModel::setPosition(double x, double y, double z)
+void Model::setPosition(double x, double y, double z)
 {
   double deltaX = x - offset_.x;
   double deltaY = y - offset_.y;
@@ -35,9 +35,9 @@ void RasModel::setPosition(double x, double y, double z)
   generateTriangles();
 }
 
-RasModel RasModel::operator*(double scale)
+Model Model::operator*(double scale)
 {
-  RasModel model = RasModel();
+  Model model = Model();
   model.faces_ = faces_;
   std::vector<Double3> vertices;
   vertices.reserve(vertices_.size());

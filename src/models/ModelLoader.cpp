@@ -7,11 +7,11 @@
 #include <fstream>
 #include <sstream>
 
-#include "../MathUtil.h"
+#include "../Util/MathUtil.h"
 
-RasModel ModelLoader::loadModel(const std::string& filePath)
+Model ModelLoader::loadModel(const std::string& filePath)
 {
-  auto model = RasModel();
+  auto model = Model();
   model.vertices_ = getObjectVertices(filePath);
   model.faces_ = getObjectFaces(filePath);
   model.generateTriangles();

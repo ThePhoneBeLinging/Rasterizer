@@ -41,7 +41,7 @@ Double2 MathUtil::WorldToScreen(const Double3& vertex)
   };
 }
 
-Color MathUtil::RandomColor()
+Double3 MathUtil::RandomColor()
 {
   if (not rng_.has_value())
   {
@@ -53,5 +53,5 @@ Color MathUtil::RandomColor()
   {
     return colorDist_.value()(rng_.value());
   };
-  return Color(randInt(), randInt(), randInt(), 255);
+  return Double3(randInt(), randInt(), randInt());
 }
