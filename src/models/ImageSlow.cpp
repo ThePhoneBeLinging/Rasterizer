@@ -29,13 +29,17 @@ void ImageSlow::draw()
 
   std::vector<Color> pixelBuffer;
   pixelBuffer.reserve(width * height);
-
-  for (int x = 0; x < height; x++)
+#pragma omp parallel for
+  for (int x = 0; x < width; x++)
   {
-    for (int y = 0; y < width; y++)
+    for (int y = 0; y < height; y++)
     {
-      auto& p = pixels_[y][x];
-      pixelBuffer.push_back(Color(p.r, p.g, p.b, 255));
+      auto& p = pixels_[x][y];
+      const int index = x + y * width;
+      pixelBuffer[index].r = p.r;
+      pixelBuffer[index].g = p.g;
+      pixelBuffer[index].b = p.b;
+      pixelBuffer[index].a = 255;
     }
   }
 

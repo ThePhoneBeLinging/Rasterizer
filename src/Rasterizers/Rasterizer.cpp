@@ -16,7 +16,6 @@
 
 void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image)
 {
-  std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
   std::vector<Double2> trianglePoints;
   std::vector<Pixel> triangleColors;
 #pragma omp parallel for
@@ -75,7 +74,4 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
       }
     }
   }
-  std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-  std::cout << "Rasterization took: " << duration.count() << "ms" << std::endl;
 }
