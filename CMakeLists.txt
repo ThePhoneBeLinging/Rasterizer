@@ -20,6 +20,24 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
     endif ()
 endif ()
 
+
+if (APPLE)
+    message(STATUS "Using manual OpenMP flags on macOS (Apple Clang)")
+
+    # Add compile flags individually
+    add_compile_options(
+            -Xpreprocessor
+            -fopenmp
+            -I/opt/homebrew/opt/libomp/include
+    )
+
+    # Add link flags individually
+    add_link_options(
+            -L/opt/homebrew/opt/libomp/lib
+            -lomp
+    )
+endif ()
+
 add_executable(Rasterization main.cpp
         src/models/Double2.cpp
         src/models/Double2.h
@@ -43,3 +61,4 @@ add_executable(Rasterization main.cpp
 )
 
 target_link_libraries(Rasterization PUBLIC raylib)
+target_link_libraries(Rasterization PUBLIC ${OpenMP_omp_LIBRARY})

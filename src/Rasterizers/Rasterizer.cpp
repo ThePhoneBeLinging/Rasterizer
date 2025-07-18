@@ -3,7 +3,7 @@
 //
 
 #include "Rasterizer.h"
-
+#include "omp.h"
 #include <iostream>
 
 #include "../EnvVariables.h"
@@ -19,7 +19,7 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
   std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
   std::vector<Double2> trianglePoints;
   std::vector<Pixel> triangleColors;
-
+#pragma omp parallel for
   for (int i = 0; i < EnvVariables::screenWidth; i++)
   {
     for (int j = 0; j < EnvVariables::screenHeight; j++)
@@ -39,6 +39,7 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
       triangleColors.emplace_back(color.r, color.g, color.b);
     }
   }
+#pragma omp parallel for
   for (int index = 0; index < trianglePoints.size(); index += 3)
   {
     Double2 p1 = trianglePoints[index];
@@ -50,7 +51,6 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
     int maxX = std::max(p1.x, std::max(p2.x, p3.x)) + 1;
     int maxY = std::max(p1.y, std::max(p2.y, p3.y)) + 1;
     auto pixel = triangleColors[index / 3];
-
     for (int i = minX; i < maxX; i++)
     {
       for (int j = minY; j < maxY; j++)

@@ -19,13 +19,11 @@ ImageSlow::ImageSlow() : pixels_(EnvVariables::screenWidth)
 
 void ImageSlow::draw()
 {
-  // (1) Create the texture once (lazy init)
   if (!texture.has_value())
   {
     texture = LoadTextureFromImage(GenImageColor(EnvVariables::screenWidth, EnvVariables::screenHeight, BLANK));
   }
 
-  // (2) Create a stack-allocated flat pixel buffer (Color[])
   const int width = EnvVariables::screenWidth;
   const int height = EnvVariables::screenHeight;
 
@@ -36,14 +34,11 @@ void ImageSlow::draw()
   {
     for (int y = 0; y < width; y++)
     {
-      auto& p = pixels_[y][x]; // assuming pixels_[y][x] has .r/.g/.b
+      auto& p = pixels_[y][x];
       pixelBuffer.push_back(Color(p.r, p.g, p.b, 255));
     }
   }
 
-  // (3) Update the texture using the new pixel data
   UpdateTexture(texture.value(), pixelBuffer.data());
-
-  // (4) Draw the updated texture
   DrawTexture(texture.value(), 0, 0, WHITE);
 }
