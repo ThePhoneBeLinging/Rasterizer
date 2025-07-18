@@ -4,7 +4,7 @@
 
 #include "Transformer.h"
 
-Double3 Transformer::ToWorldPoint(Double3 point)
+Double3 Transformer::ToWorldPoint(const Double3& point)
 {
   auto basisVector = GetBasisVectors();
   auto result = GetBasisVectors();

@@ -10,7 +10,6 @@
 int main()
 {
   InitWindow(EnvVariables::screenWidth, EnvVariables::screenHeight, "Rasterizer");
-  SetTargetFPS(60);
   std::vector<RasModel> models;
   for (int i = 0; i < 5; i++)
   {

@@ -11,6 +11,8 @@ RasModel::RasModel() : offset_(0, 0, 0)
 
 void RasModel::generateTriangles()
 {
+  triangles_.clear();
+  triangleColors_.clear();
   for (const auto& face : faces_)
   {
     triangles_.emplace_back(vertices_[face.x]);

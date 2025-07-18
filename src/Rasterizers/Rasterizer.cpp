@@ -24,7 +24,9 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
   {
     for (int j = 0; j < EnvVariables::screenHeight; j++)
     {
-      image.pixels_[i][j] = Pixel(0, 0, 0);
+      image.pixels_[i][j].r = 0;
+      image.pixels_[i][j].g = 0;
+      image.pixels_[i][j].b = 0;
     }
   }
 
@@ -50,7 +52,15 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
     int minY = std::min(p1.y, std::min(p2.y, p3.y)) - 1;
     int maxX = std::max(p1.x, std::max(p2.x, p3.x)) + 1;
     int maxY = std::max(p1.y, std::max(p2.y, p3.y)) + 1;
-    auto pixel = triangleColors[index / 3];
+    const auto pixel = &triangleColors[index / 3];
+
+    if (minX > EnvVariables::screenWidth || minY > EnvVariables::screenHeight || maxX < 0 || maxY < 0)
+    {
+      continue;
+    }
+    maxX = std::clamp(maxX, 0, EnvVariables::screenWidth - 1);
+    maxY = std::clamp(maxY, 0, EnvVariables::screenHeight - 1);
+
     for (int i = minX; i < maxX; i++)
     {
       for (int j = minY; j < maxY; j++)
@@ -59,7 +69,9 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
         {
           continue;
         }
-        image.pixels_[i][j] = pixel;
+        image.pixels_[i][j].r = pixel->r;
+        image.pixels_[i][j].g = pixel->g;
+        image.pixels_[i][j].b = pixel->b;
       }
     }
   }
