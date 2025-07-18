@@ -24,7 +24,7 @@ TEST_F(TimingTests, RasterizeTimingTest)
   }
   auto image = ImageSlow();
   std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-  for (int i = 0; i < 500; i++)
+  for (int i = 0; i < 1000; i++)
   {
     Rasterizer::rasterize(models, image);
   }
