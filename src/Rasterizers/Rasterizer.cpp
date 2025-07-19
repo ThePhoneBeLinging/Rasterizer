@@ -23,9 +23,7 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
   {
     for (int j = 0; j < EnvVariables::screenHeight; j++)
     {
-      image.pixels_[i][j].r = 0;
-      image.pixels_[i][j].g = 0;
-      image.pixels_[i][j].b = 0;
+      image.setPixelColor(i, j, 0, 0, 0);
     }
   }
 
@@ -68,9 +66,7 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
         {
           continue;
         }
-        image.pixels_[i][j].r = pixel->r;
-        image.pixels_[i][j].g = pixel->g;
-        image.pixels_[i][j].b = pixel->b;
+        image.setPixelColor(i, j, pixel->r, pixel->g, pixel->b);
       }
     }
   }

@@ -16,10 +16,10 @@ class ImageSlow
 public:
   explicit ImageSlow();
   void draw();
-
-  std::vector<std::vector<Pixel>> pixels_;
+  void setPixelColor(int x, int y, int r, int g, int b);
 
 private:
+  std::vector<Color> pixelBuffer_;
   std::optional<Texture2D> texture;
 };
 

@@ -9,11 +9,11 @@
 #include "raylib.h"
 #include "../EnvVariables.h"
 
-ImageSlow::ImageSlow() : pixels_(EnvVariables::screenWidth)
+ImageSlow::ImageSlow() : pixelBuffer_(EnvVariables::screenHeight * EnvVariables::screenWidth)
 {
-  for (auto& pixel : pixels_)
+  for (auto& pixel : pixelBuffer_)
   {
-    pixel.resize(EnvVariables::screenHeight);
+    pixel.a = 255;
   }
 }
 
@@ -23,26 +23,14 @@ void ImageSlow::draw()
   {
     texture = LoadTextureFromImage(GenImageColor(EnvVariables::screenWidth, EnvVariables::screenHeight, BLANK));
   }
-
-  const int width = EnvVariables::screenWidth;
-  const int height = EnvVariables::screenHeight;
-
-  std::vector<Color> pixelBuffer;
-  pixelBuffer.reserve(width * height);
-#pragma omp parallel for
-  for (int x = 0; x < width; x++)
-  {
-    for (int y = 0; y < height; y++)
-    {
-      auto& p = pixels_[x][y];
-      const int index = x + y * width;
-      pixelBuffer[index].r = p.r;
-      pixelBuffer[index].g = p.g;
-      pixelBuffer[index].b = p.b;
-      pixelBuffer[index].a = 255;
-    }
-  }
-
-  UpdateTexture(texture.value(), pixelBuffer.data());
+  UpdateTexture(texture.value(), pixelBuffer_.data());
   DrawTexture(texture.value(), 0, 0, WHITE);
+}
+
+void ImageSlow::setPixelColor(const int x, const int y, const int r, const int g, const int b)
+{
+  const int index = x * EnvVariables::screenWidth + y;
+  pixelBuffer_[index].r = r;
+  pixelBuffer_[index].g = g;
+  pixelBuffer_[index].b = b;
 }
