@@ -14,12 +14,15 @@ class TimingTests : public testing::Test
 
 TEST_F(TimingTests, RasterizeTimingTest)
 {
-  std::vector<RasModel> models;
+  std::vector<RasModel*> models;
   for (int i = 0; i < 5; i++)
   {
-    auto cube = ModelLoader::loadModel("../Resources/simpleCube.obj");
-    cube = cube * 100;
-    cube.setPosition(i * 200 - 400, 0, 0);
+    auto cube = ModelLoader::getRasModel("simpleCube");
+    auto cubeInstance = cube->createInstance();
+    cubeInstance->scale_ = 100;
+    cubeInstance->position_.x = 50;
+    cubeInstance->position_.y = 50;
+    cube->generateTriangles();
     models.push_back(cube);
   }
   auto image = ImageSlow();
@@ -35,23 +38,24 @@ TEST_F(TimingTests, RasterizeTimingTest)
 
 TEST_F(TimingTests, ImageSlowTimingTest)
 {
-  InitWindow(800, 600, "Test Window");
-  std::vector<RasModel> models;
+  InitWindow(50, 50, "Rasterizer");
+  std::vector<RasModel*> models;
   for (int i = 0; i < 5; i++)
   {
-    auto cube = ModelLoader::loadModel("../Resources/simpleCube.obj");
-    cube = cube * 100;
-    cube.setPosition(i * 200 - 400, 0, 0);
+    auto cube = ModelLoader::getRasModel("simpleCube");
+    auto cubeInstance = cube->createInstance();
+    cubeInstance->scale_ = 100;
+    cubeInstance->position_.x = 50;
+    cubeInstance->position_.y = 50;
+    cube->generateTriangles();
     models.push_back(cube);
   }
   auto image = ImageSlow();
-  Rasterizer::rasterize(models, image);
   std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-  for (int k = 0; k < 500; k++)
+  for (int i = 0; i < 1000; i++)
   {
     image.draw();
   }
-
   std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
   EXPECT_EQ(duration.count(), 0);

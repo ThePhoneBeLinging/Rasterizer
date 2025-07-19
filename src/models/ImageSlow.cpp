@@ -4,6 +4,8 @@
 
 #include "ImageSlow.h"
 
+#include <iostream>
+#include <ostream>
 #include <utility>
 
 #include "raylib.h"
@@ -11,6 +13,7 @@
 
 ImageSlow::ImageSlow() : pixelBuffer_(EnvVariables::screenHeight * EnvVariables::screenWidth)
 {
+#pragma omp parallel for
   for (auto& pixel : pixelBuffer_)
   {
     pixel.a = 255;
@@ -27,10 +30,21 @@ void ImageSlow::draw()
   DrawTexture(texture.value(), 0, 0, WHITE);
 }
 
-void ImageSlow::setPixelColor(const int x, const int y, const int r, const int g, const int b)
+void ImageSlow::setPixelColor(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b)
 {
-  const int index = x * EnvVariables::screenWidth + y;
+  const int index = y * EnvVariables::screenWidth + x;
   pixelBuffer_[index].r = r;
   pixelBuffer_[index].g = g;
   pixelBuffer_[index].b = b;
+}
+
+void ImageSlow::reset()
+{
+#pragma omp parallel for
+  for (auto& pixel : pixelBuffer_)
+  {
+    pixel.r = 0;
+    pixel.g = 0;
+    pixel.b = 0;
+  }
 }

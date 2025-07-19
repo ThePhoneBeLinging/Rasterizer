@@ -9,13 +9,24 @@
 
 #include "../MathUtil.h"
 
-RasModel ModelLoader::loadModel(const std::string& filePath)
+RasModel* ModelLoader::getRasModel(const std::string& modelName)
 {
+  loadModel(modelName);
+  return &modelMap_[modelName];
+}
+
+void ModelLoader::loadModel(const std::string& modelName)
+{
+  if (modelMap_.contains(modelName))
+  {
+    return;
+  }
   auto model = RasModel();
+  auto filePath = "../Resources/" + modelName + ".obj";
   model.vertices_ = getObjectVertices(filePath);
   model.faces_ = getObjectFaces(filePath);
   model.generateTriangles();
-  return model;
+  modelMap_[modelName] = model;
 }
 
 std::vector<Double3> ModelLoader::getObjectVertices(std::string objectPath)

@@ -14,27 +14,20 @@
 #include "../models/Double3.h"
 #include "../models/ImageSlow.h"
 
-void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image)
+void Rasterizer::rasterize(const std::vector<RasModel*>& models, ImageSlow& image)
 {
   std::vector<Double2> trianglePoints;
   std::vector<Pixel> triangleColors;
-#pragma omp parallel for
-  for (int i = 0; i < EnvVariables::screenWidth; i++)
-  {
-    for (int j = 0; j < EnvVariables::screenHeight; j++)
-    {
-      image.setPixelColor(i, j, 0, 0, 0);
-    }
-  }
+  image.reset();
 
   for (const auto& model : models)
   {
-    for (int i = 0; i < model.triangles_.size(); i += 3)
+    for (int i = 0; i < model->triangles_.size(); i += 3)
     {
-      trianglePoints.push_back(MathUtil::WorldToScreen(model.triangles_[i]));
-      trianglePoints.push_back(MathUtil::WorldToScreen(model.triangles_[i + 1]));
-      trianglePoints.push_back(MathUtil::WorldToScreen(model.triangles_[i + 2]));
-      auto color = model.triangleColors_[i / 3];
+      trianglePoints.push_back(MathUtil::WorldToScreen(model->triangles_[i]));
+      trianglePoints.push_back(MathUtil::WorldToScreen(model->triangles_[i + 1]));
+      trianglePoints.push_back(MathUtil::WorldToScreen(model->triangles_[i + 2]));
+      auto color = model->triangleColors_[i / 3];
       triangleColors.emplace_back(color.r, color.g, color.b);
     }
   }
@@ -49,7 +42,7 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
     int minY = std::min(p1.y, std::min(p2.y, p3.y)) - 1;
     int maxX = std::max(p1.x, std::max(p2.x, p3.x)) + 1;
     int maxY = std::max(p1.y, std::max(p2.y, p3.y)) + 1;
-    const auto pixel = &triangleColors[index / 3];
+    const auto& pixel = triangleColors[index / 3];
 
     if (minX > EnvVariables::screenWidth || minY > EnvVariables::screenHeight || maxX < 0 || maxY < 0)
     {
@@ -66,7 +59,7 @@ void Rasterizer::rasterize(const std::vector<RasModel>& models, ImageSlow& image
         {
           continue;
         }
-        image.setPixelColor(i, j, pixel->r, pixel->g, pixel->b);
+        image.setPixelColor(i, j, pixel.r, pixel.g, pixel.b);
       }
     }
   }

@@ -7,14 +7,14 @@
 #include "EnvVariables.h"
 #include "Transformer.h"
 
-bool MathUtil::PointOnRightSideOfLine(Double2 a, Double2 b, Double2 p)
+bool MathUtil::PointOnRightSideOfLine(const Double2& a, const Double2& b, const Double2& p)
 {
   Double2 ap = p - a;
   Double2 abPerp = Perpendicular(b - a);
   return Dot(ap, abPerp) >= 0;
 }
 
-bool MathUtil::PointInsideTriangle(Double2 a, Double2 b, Double2 c, Double2 p)
+bool MathUtil::PointInsideTriangle(const Double2& a, const Double2& b, const Double2& c, const Double2& p)
 {
   bool sideAB = PointOnRightSideOfLine(a, b, p);
   bool sideBC = PointOnRightSideOfLine(b, c, p);
@@ -22,12 +22,12 @@ bool MathUtil::PointInsideTriangle(Double2 a, Double2 b, Double2 c, Double2 p)
   return sideAB && sideBC && sideCA;
 }
 
-double MathUtil::Dot(Double2 a, Double2 b)
+double MathUtil::Dot(const Double2& a, const Double2& b)
 {
   return a.x * b.x + a.y * b.y;
 }
 
-Double2 MathUtil::Perpendicular(Double2 a)
+Double2 MathUtil::Perpendicular(const Double2& a)
 {
   return {a.y, -a.x};
 }
@@ -36,8 +36,7 @@ Double2 MathUtil::WorldToScreen(const Double3& vertex)
 {
   auto vertex_world = Transformer::ToWorldPoint(vertex);
   return {
-    vertex_world.x + (static_cast<double>(EnvVariables::screenWidth) / 2),
-    vertex_world.y + (static_cast<double>(EnvVariables::screenHeight) / 2)
+    vertex_world.x, vertex_world.y
   };
 }
 

@@ -58,6 +58,8 @@ add_library(LibRasterization
         Rasterizers/Rasterizer.h
         Transformer.cpp
         Transformer.h
+        models/UsableModel.cpp
+        models/UsableModel.h
 )
 
 target_link_libraries(LibRasterization PUBLIC raylib)

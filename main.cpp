@@ -10,12 +10,15 @@
 int main()
 {
   InitWindow(EnvVariables::screenWidth, EnvVariables::screenHeight, "Rasterizer");
-  std::vector<RasModel> models;
+  std::vector<RasModel*> models;
   for (int i = 0; i < 5; i++)
   {
-    auto cube = ModelLoader::loadModel("../Resources/simpleCube.obj");
-    cube = cube * 100;
-    cube.setPosition(i * 200 - 400, 0, 0);
+    auto cube = ModelLoader::getRasModel("simpleCube");
+    auto cubeInstance = cube->createInstance();
+    cubeInstance->scale_ = 100;
+    cubeInstance->position_.x = 50;
+    cubeInstance->position_.y = 50;
+    cube->generateTriangles();
     models.push_back(cube);
   }
   ImageSlow image = ImageSlow();

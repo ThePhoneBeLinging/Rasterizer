@@ -16,7 +16,8 @@ class ImageSlow
 public:
   explicit ImageSlow();
   void draw();
-  void setPixelColor(int x, int y, int r, int g, int b);
+  void setPixelColor(int x, int y, uint8_t r, uint8_t g, uint8_t b);
+  void reset();
 
 private:
   std::vector<Color> pixelBuffer_;

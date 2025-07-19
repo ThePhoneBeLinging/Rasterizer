@@ -14,10 +14,10 @@
 class MathUtil
 {
 public:
-  static bool PointOnRightSideOfLine(Double2 a, Double2 b, Double2 p);
-  static bool PointInsideTriangle(Double2 a, Double2 b, Double2 c, Double2 p);
-  static double Dot(Double2 a, Double2 b);
-  static Double2 Perpendicular(Double2 a);
+  static bool PointOnRightSideOfLine(const Double2& a, const Double2& b, const Double2& p);
+  static bool PointInsideTriangle(const Double2& a, const Double2& b, const Double2& c, const Double2& p);
+  static double Dot(const Double2& a, const Double2& b);
+  static Double2 Perpendicular(const Double2& a);
   static Double2 WorldToScreen(const Double3& vertex);
   static Color RandomColor();
 

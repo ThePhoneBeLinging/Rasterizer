@@ -4,19 +4,24 @@
 
 #ifndef MODELLOADER_H
 #define MODELLOADER_H
+#include <map>
 #include <vector>
 #include "RasModel.h"
 #include "Double3.h"
+#include "UsableModel.h"
 
 
 class ModelLoader
 {
 public:
-  static RasModel loadModel(const std::string& filePath);
+  static RasModel* getRasModel(const std::string& modelName);
 
 private:
+  static void loadModel(const std::string& modelName);
   static std::vector<Double3> getObjectVertices(std::string objectPath);
   static std::vector<Double3> getObjectFaces(std::string objectPath);
+
+  static inline std::map<std::string, RasModel> modelMap_;
 };
 
 

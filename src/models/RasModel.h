@@ -8,22 +8,22 @@
 
 #include "Double3.h"
 #include "raylib.h"
+#include "UsableModel.h"
 
 
 class RasModel
 {
 public:
-  RasModel();
+  RasModel() = default;
+  std::shared_ptr<UsableModel> createInstance();
   void generateTriangles();
-  void setPosition(double x, double y, double z);
-  RasModel operator*(double scale);
   std::vector<Double3> triangles_;
   std::vector<Color> triangleColors_;
   std::vector<Double3> vertices_;
   std::vector<Double3> faces_;
 
 private:
-  Double3 offset_;
+  std::vector<std::shared_ptr<UsableModel>> instances_;
 };
 
 
