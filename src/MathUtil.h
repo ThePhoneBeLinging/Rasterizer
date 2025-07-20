@@ -4,6 +4,7 @@
 
 #ifndef MATHUTIL_H
 #define MATHUTIL_H
+#include <optional>
 #include <random>
 
 #include "raylib.h"

@@ -3,6 +3,9 @@
 //
 
 #include "Rasterizer.h"
+
+#include <algorithm>
+
 #include "omp.h"
 #include <iostream>
 

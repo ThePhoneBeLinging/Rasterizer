@@ -3,6 +3,7 @@
 //
 
 #include "Transformer.h"
+#include <cmath>
 
 Double3 Transformer::ToWorldPoint(const Double3& point)
 {
