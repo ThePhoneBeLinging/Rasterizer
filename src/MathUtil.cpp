@@ -36,7 +36,7 @@ Double2 MathUtil::WorldToScreen(const Double3& vertex)
 {
   auto vertex_world = Transformer::ToWorldPoint(vertex);
   return {
-    vertex_world.x, vertex_world.y
+    vertex_world.x + EnvVariables::screenWidth / 2, vertex_world.y + EnvVariables::screenHeight / 2
   };
 }
 

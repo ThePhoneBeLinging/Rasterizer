@@ -16,13 +16,13 @@ int main()
     auto cube = ModelLoader::getRasModel("simpleCube");
     auto cubeInstance = cube->createInstance();
     cubeInstance->scale_ = 100;
-    cubeInstance->position_.x = 50;
-    cubeInstance->position_.y = 50;
+    cubeInstance->position_.x = 0;
+    cubeInstance->position_.y = 0;
     cube->generateTriangles();
     models.push_back(cube);
   }
   ImageSlow image = ImageSlow();
-  while (!WindowShouldClose())
+  for (int times = 0; times < 200; times++)
   {
     BeginDrawing();
     ClearBackground(RAYWHITE);
