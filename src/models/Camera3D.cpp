@@ -10,8 +10,8 @@
 #include "../Util/EnvVariables.h"
 #include "../Util/Transformer.h"
 
-Rasterization::Camera3D::Camera3D() : position_(0, 0, 0), yaw_(0), pitch_(0),
-                                      lastMousePosition_(GetMousePosition().x, GetMousePosition().y)
+Rasterization::Camera3D::Camera3D() : yaw_(0), pitch_(0), lastMousePosition_(GetMousePosition().x, GetMousePosition().y),
+                                      position_(0, 0, 0)
 {
   DisableCursor();
 }
