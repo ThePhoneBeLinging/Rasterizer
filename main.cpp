@@ -22,7 +22,7 @@ int main()
   cube->generateTriangles();
   models.push_back(cube);
   ImageSlow image = ImageSlow();
-  for (int times = 0; times < 2500; times++)
+  while (not WindowShouldClose())
   {
     BeginDrawing();
     ClearBackground(RAYWHITE);
