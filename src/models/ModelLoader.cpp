@@ -29,7 +29,7 @@ void ModelLoader::loadModel(const std::string& modelName)
   modelMap_[modelName] = model;
 }
 
-std::vector<Double3> ModelLoader::getObjectVertices(std::string objectPath)
+std::vector<Double3> ModelLoader::getObjectVertices(const std::string& objectPath)
 {
   std::vector<Double3> vertices;
   std::ifstream infile(objectPath);
@@ -48,7 +48,7 @@ std::vector<Double3> ModelLoader::getObjectVertices(std::string objectPath)
   return vertices;
 }
 
-std::vector<Double3> ModelLoader::getObjectFaces(std::string objectPath)
+std::vector<Double3> ModelLoader::getObjectFaces(const std::string& objectPath)
 {
   std::vector<Double3> faces;
   std::ifstream infile(objectPath);

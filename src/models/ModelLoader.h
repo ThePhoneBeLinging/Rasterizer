@@ -18,8 +18,8 @@ public:
 
 private:
   static void loadModel(const std::string& modelName);
-  static std::vector<Double3> getObjectVertices(std::string objectPath);
-  static std::vector<Double3> getObjectFaces(std::string objectPath);
+  static std::vector<Double3> getObjectVertices(const std::string& objectPath);
+  static std::vector<Double3> getObjectFaces(const std::string& objectPath);
 
   static inline std::map<std::string, RasModel> modelMap_;
 };
