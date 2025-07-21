@@ -37,7 +37,10 @@ void Rasterization::Camera3D::update()
   auto mousePos = GetMousePosition();
   yaw_ += (mousePos.x - lastMousePosition_.x) / 800;
   pitch_ += (mousePos.y - lastMousePosition_.y) / 800;
-  lastMousePosition_ = {mousePos.x, mousePos.y};
+  SetMousePosition(EnvVariables::screenWidth / 2, EnvVariables::screenHeight / 2);
+  lastMousePosition_ = {
+    static_cast<double>(EnvVariables::screenWidth / 2), static_cast<double>(EnvVariables::screenHeight / 2)
+  };
 }
 
 Double2 Rasterization::Camera3D::WorldToScreen(const Double3& vertex) const
