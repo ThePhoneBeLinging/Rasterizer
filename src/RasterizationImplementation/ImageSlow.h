@@ -7,7 +7,7 @@
 #include <optional>
 #include <vector>
 
-#include "Pixel.h"
+#include "../models/Pixel.h"
 #include "raylib.h"
 
 

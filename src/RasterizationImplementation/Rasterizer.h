@@ -6,7 +6,7 @@
 #define RASTERIZER_H
 #include <memory>
 #include "../models/RasModel.h"
-#include "../models/ImageSlow.h"
+#include "ImageSlow.h"
 
 
 class Rasterizer

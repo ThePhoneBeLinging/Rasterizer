@@ -3,7 +3,7 @@ project(Rasterization_Tests)
 
 set(CMAKE_CXX_STANDARD 23)
 
-file(GLOB_RECURSE SRC_FILES ../src/*.cpp ../src/models/*.cpp ../src/Rasterizers/*.cpp)
+file(GLOB_RECURSE SRC_FILES ../src/*.cpp ../src/models/*.cpp ../src/RasterizationImplementation/*.cpp)
 
 set(SOURCES
         TimingTests.cpp

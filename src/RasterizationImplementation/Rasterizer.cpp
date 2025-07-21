@@ -15,7 +15,7 @@
 #include "../Util/MathUtil.h"
 #include "../models/Double2.h"
 #include "../models/Double3.h"
-#include "../models/ImageSlow.h"
+#include "ImageSlow.h"
 
 void Rasterizer::rasterize(const std::vector<RasModel*>& models, ImageSlow& image)
 {

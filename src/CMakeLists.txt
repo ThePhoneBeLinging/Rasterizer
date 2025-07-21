@@ -47,15 +47,15 @@ add_library(LibRasterization
         models/Pixel.h
         Util/MathUtil.cpp
         Util/MathUtil.h
-        models/ImageSlow.cpp
-        models/ImageSlow.h
+        RasterizationImplementation/ImageSlow.cpp
+        RasterizationImplementation/ImageSlow.h
         Util/EnvVariables.h
         models/ModelLoader.cpp
         models/ModelLoader.h
         models/RasModel.cpp
         models/RasModel.h
-        Rasterizers/Rasterizer.cpp
-        Rasterizers/Rasterizer.h
+        RasterizationImplementation/Rasterizer.cpp
+        RasterizationImplementation/Rasterizer.h
         Util/Transformer.cpp
         Util/Transformer.h
         models/UsableModel.cpp

@@ -4,7 +4,7 @@
 
 #ifndef TIMINGTESTS_H
 #define TIMINGTESTS_H
-#include "../src/Rasterizers/Rasterizer.h"
+#include "../src/RasterizationImplementation/Rasterizer.h"
 #include "../src/models/ModelLoader.h"
 #include "gtest/gtest.h"
 
