@@ -8,8 +8,8 @@
 #include <random>
 
 #include "raylib.h"
-#include "models/Double2.h"
-#include "models/Double3.h"
+#include "../models/Double2.h"
+#include "../models/Double3.h"
 
 
 class MathUtil

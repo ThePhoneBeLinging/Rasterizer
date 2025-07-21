@@ -3,7 +3,7 @@
 //
 
 #include "RasModel.h"
-#include "../MathUtil.h"
+#include "../Util/MathUtil.h"
 
 std::shared_ptr<UsableModel> RasModel::createInstance()
 {

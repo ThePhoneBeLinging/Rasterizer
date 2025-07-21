@@ -2,8 +2,8 @@
 #include <iostream>
 
 #include "raylib.h"
-#include "src/EnvVariables.h"
-#include "src/Transformer.h"
+#include "src/Util/EnvVariables.h"
+#include "src/Util/Transformer.h"
 #include "src/models/ModelLoader.h"
 #include "src/Rasterizers/Rasterizer.h"
 

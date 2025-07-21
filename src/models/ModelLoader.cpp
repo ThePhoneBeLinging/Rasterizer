@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "../MathUtil.h"
+#include "../Util/MathUtil.h"
 
 RasModel* ModelLoader::getRasModel(const std::string& modelName)
 {

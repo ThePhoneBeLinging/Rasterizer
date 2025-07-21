@@ -9,7 +9,7 @@
 #include <utility>
 
 #include "raylib.h"
-#include "../EnvVariables.h"
+#include "../Util/EnvVariables.h"
 
 ImageSlow::ImageSlow() : pixelBuffer_(EnvVariables::screenHeight * EnvVariables::screenWidth)
 {

@@ -45,19 +45,19 @@ add_library(LibRasterization
         models/Double3.h
         models/Pixel.cpp
         models/Pixel.h
-        MathUtil.cpp
-        MathUtil.h
+        Util/MathUtil.cpp
+        Util/MathUtil.h
         models/ImageSlow.cpp
         models/ImageSlow.h
-        EnvVariables.h
+        Util/EnvVariables.h
         models/ModelLoader.cpp
         models/ModelLoader.h
         models/RasModel.cpp
         models/RasModel.h
         Rasterizers/Rasterizer.cpp
         Rasterizers/Rasterizer.h
-        Transformer.cpp
-        Transformer.h
+        Util/Transformer.cpp
+        Util/Transformer.h
         models/UsableModel.cpp
         models/UsableModel.h
 )

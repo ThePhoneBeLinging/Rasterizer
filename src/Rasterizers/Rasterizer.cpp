@@ -9,10 +9,10 @@
 #include "omp.h"
 #include <iostream>
 
-#include "../EnvVariables.h"
+#include "../Util/EnvVariables.h"
 #include <random>
 
-#include "../MathUtil.h"
+#include "../Util/MathUtil.h"
 #include "../models/Double2.h"
 #include "../models/Double3.h"
 #include "../models/ImageSlow.h"
