@@ -12,6 +12,7 @@ public:
   Double3(double x, double y, double z);
   Double3 operator*(const double& b) const;
   Double3 operator+(Double3 b) const;
+  Double3 operator-(const Double3& double3) const;
   double x;
   double y;
   double z;

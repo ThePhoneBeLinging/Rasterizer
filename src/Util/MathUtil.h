@@ -19,7 +19,6 @@ public:
   static bool PointInsideTriangle(const Double2& a, const Double2& b, const Double2& c, const Double2& p);
   static double Dot(const Double2& a, const Double2& b);
   static Double2 Perpendicular(const Double2& a);
-  static Double2 WorldToScreen(const Double3& vertex);
   static Color RandomColor();
 
 private:

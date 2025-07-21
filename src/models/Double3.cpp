@@ -17,3 +17,8 @@ Double3 Double3::operator+(Double3 b) const
 {
   return {x + b.x, y + b.y, z + b.z};
 }
+
+Double3 Double3::operator-(const Double3& double3) const
+{
+  return {x - double3.x, y - double3.y, z - double3.z};
+}

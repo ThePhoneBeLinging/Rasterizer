@@ -17,7 +17,8 @@
 #include "../models/Double3.h"
 #include "ImageSlow.h"
 
-void Rasterizer::rasterize(const std::vector<RasModel*>& models, ImageSlow& image)
+void Rasterizer::rasterize(const std::vector<RasModel*>& models, ImageSlow& image,
+                           const Rasterization::Camera3D& camera)
 {
   std::vector<Double2> trianglePoints;
   std::vector<Pixel> triangleColors;
@@ -27,9 +28,9 @@ void Rasterizer::rasterize(const std::vector<RasModel*>& models, ImageSlow& imag
   {
     for (int i = 0; i < model->triangles_.size(); i += 3)
     {
-      trianglePoints.push_back(MathUtil::WorldToScreen(model->triangles_[i]));
-      trianglePoints.push_back(MathUtil::WorldToScreen(model->triangles_[i + 1]));
-      trianglePoints.push_back(MathUtil::WorldToScreen(model->triangles_[i + 2]));
+      trianglePoints.push_back(camera.WorldToScreen(model->triangles_[i]));
+      trianglePoints.push_back(camera.WorldToScreen(model->triangles_[i + 1]));
+      trianglePoints.push_back(camera.WorldToScreen(model->triangles_[i + 2]));
       auto color = model->triangleColors_[i / 3];
       triangleColors.emplace_back(color.r, color.g, color.b);
     }

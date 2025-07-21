@@ -7,12 +7,13 @@
 #include <memory>
 #include "../models/RasModel.h"
 #include "ImageSlow.h"
+#include "../models/Camera3D.h"
 
 
 class Rasterizer
 {
 public:
-  static void rasterize(const std::vector<RasModel*>& models, ImageSlow& image);
+  static void rasterize(const std::vector<RasModel*>& models, ImageSlow& image, const Rasterization::Camera3D& camera);
 };
 
 

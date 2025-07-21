@@ -60,6 +60,8 @@ add_library(LibRasterization
         Util/Transformer.h
         models/UsableModel.cpp
         models/UsableModel.h
+        models/Camera3D.cpp
+        models/Camera3D.h
 )
 if (LINUX)
     find_package(OpenMP REQUIRED)

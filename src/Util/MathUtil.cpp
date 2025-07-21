@@ -32,14 +32,6 @@ Double2 MathUtil::Perpendicular(const Double2& a)
   return {a.y, -a.x};
 }
 
-Double2 MathUtil::WorldToScreen(const Double3& vertex)
-{
-  auto vertex_world = Transformer::ToWorldPoint(vertex);
-  return {
-    vertex_world.x + EnvVariables::screenWidth / 2, vertex_world.y + EnvVariables::screenHeight / 2
-  };
-}
-
 Color MathUtil::RandomColor()
 {
   if (not rng_.has_value())
