@@ -61,6 +61,10 @@ add_library(LibRasterization
         models/UsableModel.cpp
         models/UsableModel.h
 )
+if (LINUX)
+    find_package(OpenMP REQUIRED)
+    target_link_libraries(Rasterization PUBLIC OpenMP::OpenMP_CXX)
+endif ()
 
 target_link_libraries(LibRasterization PUBLIC raylib)
 target_link_libraries(LibRasterization PUBLIC ${OpenMP_omp_LIBRARY})
