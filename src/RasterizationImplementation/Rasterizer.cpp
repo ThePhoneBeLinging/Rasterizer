@@ -16,6 +16,7 @@
 #include "../models/Double2.h"
 #include "../models/Double3.h"
 #include "ImageSlow.h"
+#include "../Util/Transformer.h"
 
 void Rasterizer::rasterize(const std::vector<RasModel*>& models, ImageSlow& image,
                            const Rasterization::Camera3D& camera)

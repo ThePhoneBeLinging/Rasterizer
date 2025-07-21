@@ -4,8 +4,6 @@
 
 #include "UsableModel.h"
 
-#include "ModelLoader.h"
-
-UsableModel::UsableModel(): position_(Double3(0, 0, 0)), scale_(1)
+UsableModel::UsableModel(): position_(Double3(0, 0, 0)), scale_(1), yaw_(0), pitch_(0)
 {
 }

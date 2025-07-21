@@ -21,6 +21,10 @@ int main()
     cubeInstance->scale_ = 100;
     cubeInstance->position_.x = -200 * i;
     cubeInstance->position_.y = 0;
+    if (i == 0)
+    {
+      cubeInstance->pitch_ = 150;
+    }
   }
   cube->generateTriangles();
   models.push_back(cube);

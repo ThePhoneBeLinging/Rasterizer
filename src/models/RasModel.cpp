@@ -4,6 +4,7 @@
 
 #include "RasModel.h"
 #include "../Util/MathUtil.h"
+#include "../Util/Transformer.h"
 
 std::shared_ptr<UsableModel> RasModel::createInstance()
 {
@@ -20,9 +21,12 @@ void RasModel::generateTriangles()
   {
     for (const auto& face : faces_)
     {
-      triangles_.emplace_back(vertices_[face.x] * instance->scale_ + instance->position_);
-      triangles_.emplace_back(vertices_[face.y] * instance->scale_ + instance->position_);
-      triangles_.emplace_back(vertices_[face.z] * instance->scale_ + instance->position_);
+      auto p1 = vertices_[face.x] * instance->scale_ + instance->position_;
+      auto p2 = vertices_[face.y] * instance->scale_ + instance->position_;
+      auto p3 = vertices_[face.z] * instance->scale_ + instance->position_;
+      triangles_.emplace_back(Transformer::ToWorldPoint(p1, instance->yaw_, instance->pitch_));
+      triangles_.emplace_back(Transformer::ToWorldPoint(p2, instance->yaw_, instance->pitch_));
+      triangles_.emplace_back(Transformer::ToWorldPoint(p3, instance->yaw_, instance->pitch_));
       triangleColors_.push_back(MathUtil::RandomColor());
     }
   }

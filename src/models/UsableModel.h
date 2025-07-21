@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "Camera3D.h"
 #include "Double2.h"
 #include "Double3.h"
 #include "raylib.h"
@@ -18,6 +19,8 @@ public:
   UsableModel();
   Double3 position_;
   double scale_;
+  double yaw_{};
+  double pitch_{};
 };
 
 

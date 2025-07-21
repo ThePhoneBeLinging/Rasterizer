@@ -35,14 +35,14 @@ void Rasterization::Camera3D::update()
     position_.z += camSpeed_ * GetFrameTime();
   }
   auto mousePos = GetMousePosition();
-  yaw_ += std::abs(mousePos.y - lastMousePosition_.y) / 800;
-  pitch_ += std::abs(mousePos.x - lastMousePosition_.x) / 800;
+  yaw_ += (mousePos.x - lastMousePosition_.x) / 800;
+  pitch_ += (mousePos.y - lastMousePosition_.y) / 800;
   lastMousePosition_ = {mousePos.x, mousePos.y};
 }
 
 Double2 Rasterization::Camera3D::WorldToScreen(const Double3& vertex) const
 {
-  auto vertexWorld = Transformer::ToWorldPoint(vertex, this);
+  auto vertexWorld = Transformer::ToWorldPoint(vertex, yaw_, pitch_);
   auto vertexView = vertexWorld - position_;
   return {vertexView.x + EnvVariables::screenWidth / 2, vertexView.y + EnvVariables::screenHeight / 2};
 }
