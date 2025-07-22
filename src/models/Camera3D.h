@@ -14,7 +14,7 @@ namespace Rasterization
   public:
     Camera3D();
     void update();
-    Double2 WorldToScreen(const Double3& vertex) const;
+    [[nodiscard]] Double2 WorldToScreen(const Double3& vertex) const;
 
     double yaw_;
     double pitch_;

@@ -15,7 +15,7 @@ int main()
 
   std::vector<RasModel*> models;
   auto cube = ModelLoader::getRasModel("simpleCube");
-  for (int i = -1; i < 2; i++)
+  /*for (int i = -1; i < 2; i++)
   {
     auto cubeInstance = cube->createInstance();
     cubeInstance->scale_ = 100;
@@ -25,7 +25,12 @@ int main()
     {
       cubeInstance->pitch_ = 150;
     }
-  }
+  }*/
+  auto monkey = ModelLoader::getRasModel("Suzanne");
+  auto monkeyInstance = monkey->createInstance();
+  monkeyInstance->scale_ = 100;
+  monkey->generateTriangles();
+  models.push_back(monkey);
   cube->generateTriangles();
   models.push_back(cube);
   ImageSlow image = ImageSlow();
