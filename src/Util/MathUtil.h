@@ -15,8 +15,9 @@
 class MathUtil
 {
 public:
-  static bool PointOnRightSideOfLine(const Double2& a, const Double2& b, const Double2& p);
-  static bool PointInsideTriangle(const Double2& a, const Double2& b, const Double2& c, const Double2& p);
+  static double SignedTriangleArea(const Double2& a, const Double2& b, const Double2& p);
+  static bool PointInsideTriangle(const Double2& a, const Double2& b, const Double2& c, const Double2& p,
+                                  Double3* weights);
   static double Dot(const Double2& a, const Double2& b);
   static Double2 Perpendicular(const Double2& a);
   static Color RandomColor();

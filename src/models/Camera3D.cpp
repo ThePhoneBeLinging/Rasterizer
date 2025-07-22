@@ -44,9 +44,9 @@ void Rasterization::Camera3D::update()
   };
 }
 
-Double2 Rasterization::Camera3D::WorldToScreen(const Double3& vertex) const
+Double3 Rasterization::Camera3D::WorldToScreen(const Double3& vertex) const
 {
   auto vertexWorld = Transformer::ToWorldPoint(vertex, yaw_, pitch_);
   auto vertexView = vertexWorld - position_;
-  return {vertexView.x + EnvVariables::screenWidth / 2, vertexView.y + EnvVariables::screenHeight / 2};
+  return {vertexView.x + EnvVariables::screenWidth / 2, vertexView.y + EnvVariables::screenHeight / 2, vertexView.z};
 }

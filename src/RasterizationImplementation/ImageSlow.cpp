@@ -5,13 +5,15 @@
 #include "ImageSlow.h"
 
 #include <iostream>
+#include <limits.h>
 #include <ostream>
 #include <utility>
 
 #include "raylib.h"
 #include "../Util/EnvVariables.h"
 
-ImageSlow::ImageSlow() : pixelBuffer_(EnvVariables::screenHeight * EnvVariables::screenWidth)
+ImageSlow::ImageSlow() : pixelBuffer_(EnvVariables::screenHeight * EnvVariables::screenWidth),
+                         depthBuffer_(EnvVariables::screenHeight * EnvVariables::screenWidth)
 {
 #pragma omp parallel for
   for (auto& pixel : pixelBuffer_)
@@ -30,21 +32,27 @@ void ImageSlow::draw()
   DrawTexture(texture.value(), 0, 0, WHITE);
 }
 
-void ImageSlow::setPixelColor(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b)
+void ImageSlow::setPixelColor(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b, double depth)
 {
   const int index = y * EnvVariables::screenWidth + x;
+  if (depthBuffer_[index] < depth)
+  {
+    return;
+  }
   pixelBuffer_[index].r = r;
   pixelBuffer_[index].g = g;
   pixelBuffer_[index].b = b;
+  depthBuffer_[index] = depth;
 }
 
 void ImageSlow::reset()
 {
 #pragma omp parallel for
-  for (auto& pixel : pixelBuffer_)
+  for (int i = 0; i < EnvVariables::screenWidth * EnvVariables::screenHeight; i++)
   {
-    pixel.r = 0;
-    pixel.g = 0;
-    pixel.b = 0;
+    pixelBuffer_[i].r = 0;
+    pixelBuffer_[i].g = 0;
+    pixelBuffer_[i].b = 0;
+    depthBuffer_[i] = INT_MAX;
   }
 }

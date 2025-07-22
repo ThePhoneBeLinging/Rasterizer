@@ -7,19 +7,29 @@
 #include "EnvVariables.h"
 #include "Transformer.h"
 
-bool MathUtil::PointOnRightSideOfLine(const Double2& a, const Double2& b, const Double2& p)
+double MathUtil::SignedTriangleArea(const Double2& a, const Double2& b, const Double2& p)
 {
   Double2 ap = p - a;
   Double2 abPerp = Perpendicular(b - a);
-  return Dot(ap, abPerp) >= 0;
+  return Dot(ap, abPerp) / 2;
 }
 
-bool MathUtil::PointInsideTriangle(const Double2& a, const Double2& b, const Double2& c, const Double2& p)
+bool MathUtil::PointInsideTriangle(const Double2& a, const Double2& b, const Double2& c, const Double2& p,
+                                   Double3* weights)
 {
-  bool sideAB = PointOnRightSideOfLine(a, b, p);
-  bool sideBC = PointOnRightSideOfLine(b, c, p);
-  bool sideCA = PointOnRightSideOfLine(c, a, p);
-  return sideAB && sideBC && sideCA;
+  double areaABP = SignedTriangleArea(a, b, p);
+  double areaBCP = SignedTriangleArea(b, c, p);
+  double areaCAP = SignedTriangleArea(c, a, p);
+  bool inTriangle = areaABP >= 0 && areaBCP >= 0 && areaCAP >= 0;
+
+  double totalArea = areaABP + areaBCP + areaCAP;
+  double invAreaSum = 1 / (areaABP + areaBCP + areaCAP);
+  double weightA = areaBCP / invAreaSum;
+  double weightB = areaCAP / invAreaSum;
+  double weightC = areaABP / invAreaSum;
+
+  *weights = Double3(weightA, weightB, weightC);
+  return inTriangle && totalArea > 0;
 }
 
 double MathUtil::Dot(const Double2& a, const Double2& b)

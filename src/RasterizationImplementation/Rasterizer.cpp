@@ -21,7 +21,7 @@
 void Rasterizer::rasterize(const std::vector<RasModel*>& models, ImageSlow& image,
                            const Rasterization::Camera3D& camera)
 {
-  std::vector<Double2> trianglePoints;
+  std::vector<Double3> trianglePoints;
   std::vector<Pixel> triangleColors;
   image.reset();
 
@@ -39,9 +39,9 @@ void Rasterizer::rasterize(const std::vector<RasModel*>& models, ImageSlow& imag
 #pragma omp parallel for
   for (int index = 0; index < trianglePoints.size(); index += 3)
   {
-    Double2 p1 = trianglePoints[index];
-    Double2 p2 = trianglePoints[index + 1];
-    Double2 p3 = trianglePoints[index + 2];
+    Double3 p1 = trianglePoints[index];
+    Double3 p2 = trianglePoints[index + 1];
+    Double3 p3 = trianglePoints[index + 2];
 
     int minX = std::min(p1.x, std::min(p2.x, p3.x)) - 1;
     int minY = std::min(p1.y, std::min(p2.y, p3.y)) - 1;
@@ -60,11 +60,15 @@ void Rasterizer::rasterize(const std::vector<RasModel*>& models, ImageSlow& imag
     {
       for (int j = minY; j < maxY; j++)
       {
-        if (not MathUtil::PointInsideTriangle(p1, p2, p3, {static_cast<double>(i), static_cast<double>(j)}))
+        auto weights = Double3(0, 0, 0);
+        if (not MathUtil::PointInsideTriangle({p1.x, p1.y}, {p2.x, p2.y}, {p3.x, p3.y},
+                                              {static_cast<double>(i), static_cast<double>(j)}, &weights))
         {
           continue;
         }
-        image.setPixelColor(i, j, pixel.r, pixel.g, pixel.b);
+        double depth = weights.x * p1.z + weights.y * p2.z + weights.z * p3.z;
+
+        image.setPixelColor(i, j, pixel.r, pixel.g, pixel.b, depth);
       }
     }
   }
